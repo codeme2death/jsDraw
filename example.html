@@ -1,0 +1,190 @@
+<html>
+  <head>
+    <title></title>
+    <meta content="">
+    <style>
+        body {
+            background-color:#000000;
+            color:#ffffff;
+        }
+        canvas {
+            cursor:pointer;
+            position:relative;
+            padding:0px ;
+            margin:10px 0px 0px 0px;
+            border:5px groove #888;
+
+        }
+        canvas:active, canvas:focus {
+            cursor: crosshair;
+        }
+        #control {
+            list-style-type: none;
+            padding:5px;
+            margin:5px 0px;
+            height:50px;
+            width:100%;
+        }
+        #control li:first-child {
+            padding-right:10px;
+        }
+        #control li {
+            float:left;
+            display:inline;
+            padding:5px 10px;
+            border-right: 1px solid #888;
+        }
+        #control img {
+            position:relative;
+            margin-left:5px;
+        }
+        .color {
+            background: none;
+            width:70px;
+            border:1px solid #888;
+        }
+        #info {
+            height:10px;
+            width:100px;
+        }
+        #brush {
+            width:100px;
+            height:20px;
+        }
+        #jsBrush {
+            background-color:#000;
+            color:#000;
+        }    
+    </style>
+    <script src="./jscolor/jscolor.js"></script>
+    <script src="./jsDraw.js"></script>
+  </head>
+  <body>
+    <ul id="control">
+        <li>
+           <img src="./images/newFile.png" onClick="newCanvas('canvas1');" alt="New File" title="New File" width="30" height="40"/>
+        </li>
+        <li>
+            <img src="./images/save.png" onClick="saveCanvas('canvas1');" alt="Save" title="Save"  width="40" height="40"/>
+        </li>
+        <li>
+            <img src="./images/brush.png" onClick="brushCanvas('canvas1');" alt="Draw" title="Draw"  width="40" height="40"/>
+        </li>
+        <li>
+            <img src="./images/eraser.png" onClick="eraserBrush('canvas1');" alt="Erase" title="Erase"  width="40" height="40"/>
+        </li>
+        <li>
+            <img src="./images/undo.png" onClick="undo('canvas1');" alt="Undo" title="Undo"  width="40" height="40"/>
+        </li>
+        <li>
+            <img src="./images/redo.png" onClick="redo('canvas1');" alt="Redo" title="Redo"  width="40" height="40"/>
+        </li>
+        <li>
+            Brush Size: <br />1
+            <input type="range" name="brushSize" min="1" max="10" step="1"
+                value="3" onChange="updateBrushWidth(this.value,'canvas1');" id="brush" />
+            10
+        </li>
+        <li>
+            Brush Color:<br /> 
+            <input onchange="setBrushColor(this,'canvas1');" 
+                class="color {slider:true,pickerFace:1,pickerPosition:'bottom'} jsBrush" id="color" 
+                value="#000000" readonly/>
+        </li>
+        <li>
+            Background Color:<br /> 
+            <input onchange="setBackgroundColor(this,'canvas1');"
+                class="color {slider:false,pickerFace:1,pickerPosition:'bottom'}" id="bkcolor" readonly/>
+        </li>
+    </ul> 
+    <canvas class="canvas jsDraw" id="canvas1" width="970px" height="400px" >
+            Your browser does not support HTML5. Please upgrade your browser.
+    </canvas>  
+    <script type="text/javascript" >
+        function newCanvas(elementName) {
+            var element;
+            if(document.getElementById(elementName)) {
+                element = document.getElementById(elementName);
+                if(element.jsDraw) {
+                    element.jsDraw.newCanvas();
+                }
+            }
+        }
+        function setBrushColor(color,elementName) {
+            var element;
+            if(document.getElementById(elementName)) {
+                element = document.getElementById(elementName);            
+                if(element.jsDraw) {
+                   element.jsDraw.setBrushColor(color);             
+                }
+            }
+        }
+        function setBackgroundColor(color,elementName) {
+            var element;
+            if(document.getElementById(elementName)) {
+                element = document.getElementById(elementName);            
+                if(element.jsDraw) {
+                   element.jsDraw.setBackgroundColor(color);             
+                }
+            }
+        }
+        function saveCanvas(elementName) {
+            var element;
+            if(document.getElementById(elementName)) {
+                element = document.getElementById(elementName);            
+                if(element.jsDraw) {
+                   element.jsDraw.saveCanvas();             
+                }
+            }
+        }
+        function undo(elementName) {
+            var element;
+            if(document.getElementById(elementName)) {
+                element = document.getElementById(elementName);            
+                if(element.jsDraw) {
+                  element.jsDraw.undo();             
+                }  
+            }
+        }
+        function redo(elementName) {
+            var element;
+            if(document.getElementById(elementName)) {
+                element = document.getElementById(elementName);            
+                if(element.jsDraw) {
+                   element.jsDraw.redo();             
+                }  
+            }
+        }
+        function eraserBrush(elementName) {
+            var element;
+            if(document.getElementById(elementName)) {
+                element = document.getElementById(elementName);            
+                if(element.jsDraw) {
+                   element.jsDraw.setEraserColor();             
+                }      
+            }
+        }
+        function updateBrushWidth(value,elementName) {
+            var element;
+            if(document.getElementById(elementName)) {
+                element = document.getElementById(elementName);
+                if(element.jsDraw) {
+                   element.jsDraw.updateBrushWidth(value);
+                }
+            }
+        }
+        function brushCanvas(elementName) {
+            var element;
+            if(document.getElementById(elementName)) {
+                element = document.getElementById(elementName);            
+                if(element.jsDraw) {
+                   element.jsDraw.brushCanvas();
+                } 
+            }
+        }
+    </script>       
+
+     
+    
+  </body>
+</html> 
